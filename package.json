@@ -1,20 +1,20 @@
 {
-  "name": "feature-generator",
+  "name": "feature-generator-vscode",
   "displayName": "Feature Generator",
-  "description": "Clean Architecture Feature Generator for Flutter/Dart projects",
+  "description": "VS Code Extension for Feature Generator CLI - Clean Architecture GUI for Flutter/Dart projects",
   "version": "1.0.0",
   "publisher": "mohamedatefalqashlan",
   "author": {
     "name": "Mohamed Atef ALqashlan",
-    "email": "mohamed.atef@example.com"
+    "email": "eng.atef2017@gmail.com"
   },
-  "homepage": "https://github.com/MOHAMED-ATEF2017/feature_generator",
+  "homepage": "https://github.com/MOHAMED-ATEF2017/feature-generator-vscode-extension",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MOHAMED-ATEF2017/feature_generator.git"
+    "url": "https://github.com/MOHAMED-ATEF2017/feature-generator-vscode-extension.git"
   },
   "bugs": {
-    "url": "https://github.com/MOHAMED-ATEF2017/feature_generator/issues"
+    "url": "https://github.com/MOHAMED-ATEF2017/feature-generator-vscode-extension/issues"
   },
   "license": "MIT",
   "engines": {
@@ -22,7 +22,7 @@
   },
   "categories": [
     "Other",
-    "Snippets",
+    "Extension Packs",
     "Programming Languages"
   ],
   "keywords": [
@@ -33,8 +33,16 @@
     "bloc",
     "cubit",
     "architecture",
-    "code-generation"
+    "code-generation",
+    "vscode-extension",
+    "gui",
+    "cli-wrapper"
   ],
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "icon": "icon.png",
   "activationEvents": [
     "onLanguage:dart",
     "workspaceContains:**/pubspec.yaml"
