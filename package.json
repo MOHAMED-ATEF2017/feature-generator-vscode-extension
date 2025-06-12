@@ -1,0 +1,184 @@
+{
+  "name": "feature-generator",
+  "displayName": "Feature Generator",
+  "description": "Clean Architecture Feature Generator for Flutter/Dart projects",
+  "version": "1.0.0",
+  "publisher": "mohamedatefalqashlan",
+  "author": {
+    "name": "Mohamed Atef ALqashlan",
+    "email": "mohamed.atef@example.com"
+  },
+  "homepage": "https://github.com/MOHAMED-ATEF2017/feature_generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MOHAMED-ATEF2017/feature_generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MOHAMED-ATEF2017/feature_generator/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "flutter",
+    "dart",
+    "clean-architecture",
+    "feature-generator",
+    "bloc",
+    "cubit",
+    "architecture",
+    "code-generation"
+  ],
+  "activationEvents": [
+    "onLanguage:dart",
+    "workspaceContains:**/pubspec.yaml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "featureGenerator.createFeature",
+        "title": "Create Feature",
+        "category": "Feature Generator",
+        "icon": "$(folder-library)"
+      },
+      {
+        "command": "featureGenerator.addUseCase",
+        "title": "Add Use Case",
+        "category": "Feature Generator",
+        "icon": "$(add)"
+      },
+      {
+        "command": "featureGenerator.installDependencies",
+        "title": "Install Dependencies",
+        "category": "Feature Generator",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "featureGenerator.validateProject",
+        "title": "Validate Project",
+        "category": "Feature Generator",
+        "icon": "$(check)"
+      },
+      {
+        "command": "featureGenerator.showFeatureOverview",
+        "title": "Feature Overview",
+        "category": "Feature Generator",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "featureGenerator.refreshExplorer",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "featureGenerator.explorer",
+          "name": "Features",
+          "when": "workspaceContains:**/pubspec.yaml"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "featureGenerator.createFeature",
+          "when": "workspaceContains:**/pubspec.yaml"
+        },
+        {
+          "command": "featureGenerator.addUseCase",
+          "when": "workspaceContains:**/pubspec.yaml"
+        },
+        {
+          "command": "featureGenerator.installDependencies",
+          "when": "workspaceContains:**/pubspec.yaml"
+        },
+        {
+          "command": "featureGenerator.validateProject",
+          "when": "workspaceContains:**/pubspec.yaml"
+        },
+        {
+          "command": "featureGenerator.showFeatureOverview",
+          "when": "workspaceContains:**/pubspec.yaml"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "featureGenerator.refreshExplorer",
+          "when": "view == featureGenerator.explorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "featureGenerator.addUseCase",
+          "when": "view == featureGenerator.explorer && viewItem == feature",
+          "group": "inline"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "featureGenerator.createFeature",
+          "when": "explorerResourceIsFolder",
+          "group": "7_modification@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Feature Generator",
+      "properties": {
+        "featureGenerator.defaultArchitecture": {
+          "type": "string",
+          "default": "clean",
+          "enum": [
+            "clean",
+            "mvvm",
+            "mvc"
+          ],
+          "description": "Default architecture pattern to use"
+        },
+        "featureGenerator.autoInstallDependencies": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically install dependencies when creating features"
+        },
+        "featureGenerator.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show success/error notifications"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "deploy": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.126",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.15.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2"
+  }
+}

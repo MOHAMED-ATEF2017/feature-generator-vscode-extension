@@ -1,0 +1,9 @@
+out/
+node_modules/
+*.vsix
+.vscode-test/
+coverage/
+.nyc_output
+*.log
+.DS_Store
+Thumbs.db
