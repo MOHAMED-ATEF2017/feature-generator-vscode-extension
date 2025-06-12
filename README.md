@@ -245,3 +245,4 @@ Comprehensive project statistics and quick actions for feature management.
 ---
 
 **Made with ❤️ for the Flutter/Dart community**
+# feature-generator-vscode-extension
