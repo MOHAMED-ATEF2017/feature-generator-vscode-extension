@@ -1,0 +1,47 @@
+# Build outputs
+out/test/**
+out/**/*.map
+src/**
+**/*.ts
+!out/**/*.js
+
+# Development files
+.vscode/**
+.vscode-test/**
+.github/**
+node_modules/**
+coverage/**
+.nyc_output
+
+# Source files (keep only compiled JS)
+src/**
+tsconfig.json
+.eslintrc.json
+
+# Large/unnecessary files and files with invalid names
+*.png
+*.jpg
+*.gif
+*.bmp
+!extension-logo.png
+
+# Git and development
+.git/**
+.gitignore
+**/.DS_Store
+**/Thumbs.db
+
+# Test files
+**/test/**
+**/*.test.js
+**/*.spec.js
+
+# Documentation that's not needed in package
+.github/copilot-instructions.md
+
+# Package artifacts
+*.vsix
+
+# Files with spaces or special characters that violate OPC specification
+*" "*
+* *

@@ -1,4 +1,4 @@
-# Feature Generator VS Code Extension
+# Flutter Feature Generator Clean Code Architecture
 
 A powerful VS Code extension that provides a graphical interface for the Feature Generator CLI tool, enabling developers to create Clean Architecture features for Flutter/Dart projects with ease.
 

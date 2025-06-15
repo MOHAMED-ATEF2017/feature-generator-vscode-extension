@@ -1,12 +1,25 @@
 # Change Log
 
-All notable changes to the "feature-generator" extension will be documented in this file.
+All notable changes to the "Flutter Feature Generator Clean Code Architecture" extension will be documented in this file.
+
+## [1.0.1] - 2025-06-13
+
+### Changed
+
+- Updated extension display name to "Flutter Feature Generator Clean Code Architecture"
+- Added professional extension logo for better marketplace visibility
+- Enhanced branding and visual identity
+
+### Fixed
+
+- Resolved OPC specification compliance issues in packaging
+- Optimized package size with proper file exclusions
 
 ## [1.0.0] - 2025-06-12
 
 ### Added
 
-- Initial release of Feature Generator VS Code Extension
+- Initial release of Flutter Feature Generator Clean Code Architecture VS Code Extension
 - **Command Integration**: Complete GUI wrapper for Feature Generator CLI
 
   - `Feature Generator: Create Feature` - Create new clean architecture features

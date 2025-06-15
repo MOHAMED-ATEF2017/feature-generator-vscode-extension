@@ -1,8 +1,8 @@
 {
   "name": "feature-generator-vscode",
-  "displayName": "Feature Generator",
+  "displayName": "Flutter Feature Generator Clean Code Architecture",
   "description": "VS Code Extension for Feature Generator CLI - Clean Architecture GUI for Flutter/Dart projects",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "mohamedatefalqashlan",
   "author": {
     "name": "Mohamed Atef ALqashlan",
@@ -42,7 +42,7 @@
     "color": "#1e1e1e",
     "theme": "dark"
   },
-  "icon": "icon.png",
+  "icon": "extension-logo.png",
   "activationEvents": [
     "onLanguage:dart",
     "workspaceContains:**/pubspec.yaml"
