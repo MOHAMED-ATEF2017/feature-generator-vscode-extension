@@ -2,6 +2,149 @@
 
 All notable changes to the "Flutter Feature Generator Clean Code Architecture" extension will be documented in this file.
 
+## [1.1.1] - 2025-06-17
+
+### 🔧 Minor Fixes & Improvements
+
+- **📝 README Polish**: Manual refinements to documentation formatting
+- **🧹 Code Cleanup**: Cleaned up development setup section
+- **✨ Final Touches**: Minor adjustments for better user experience
+
+## [1.1.0] - 2025-06-17
+
+### 📚 Documentation & UX Improvements
+
+- **🎯 Simplified README**: Completely rewritten to focus on the right-click workflow
+- **✨ User-Friendly Instructions**: Clear, step-by-step guide emphasizing ease of use
+- **🚀 Quick Start Section**: Right-click workflow highlighted as the primary method
+- **🔧 Better Troubleshooting**: Improved troubleshooting section with common solutions
+- **📖 Enhanced Description**: Updated package description to highlight simplicity
+
+### Key Highlights
+
+- Right-click on `lib` folder → Create Feature
+- Right-click on feature folder → Add Use Case  
+- No manual CLI installation required
+- Smart dependency management handled automatically
+
+## [1.0.9] - 2025-06-17
+
+### Enhanced
+
+- **Enhanced Debugging**: Added comprehensive logging for use case creation
+- **Data Source Verification**: Added automatic verification that data source files are created
+- **Better Error Reporting**: Enhanced error messages with detailed command execution logs
+- **Command Tracking**: Added logging for all CLI commands and their results
+
+### Technical Improvements
+
+- Added detailed console logging for `addUseCase` method
+- Enhanced `executeCommand` method with comprehensive debugging
+- Added file existence verification for created data sources
+- Improved error handling with command output logging
+
+### Note
+
+Based on testing, the CLI correctly creates data source files when adding use cases. If you're experiencing issues with data sources not being created, the enhanced logging in this version will help identify the root cause.
+
+## [1.0.8] - 2025-06-17
+
+### Fixed
+
+- **CRITICAL FIX**: Fixed "Add Use Case" right-click command not working
+- Fixed dependency installation to only run on first time setup
+- Fixed `addUseCase` method to use proper `dart run` command instead of global CLI
+- Enhanced path parsing for Windows and Unix systems
+- Added better error handling and debugging for use case creation
+
+### Improved
+
+- **Smart Dependency Management**: Only installs core dependencies on first project setup
+- **Better Path Detection**: Enhanced feature name extraction from folder paths
+- **Debugging Support**: Added console logging for troubleshooting
+- **Error Handling**: Better error messages and user feedback
+
+### Technical Changes
+
+- Added `isFirstTimeSetup()` method to detect initial project setup
+- Added `markSetupComplete()` method to track setup completion
+- Enhanced cross-platform path handling (Windows/Unix)
+- Improved command execution with proper dependency management
+
+## [1.0.7] - 2025-06-17
+
+### Fixed
+
+- **CRITICAL FIX**: Resolved "feature_generator: not found" error in command execution
+- Fixed `executeCommand` method to use proper `dart run` commands instead of global CLI
+- Fixed `isCliInstalled` method to properly check for local dependencies
+- Enhanced error handling for better debugging and user feedback
+
+### Technical Improvements
+
+- Updated command execution to use `dart run feature_generator:feature_generator`
+- Improved timeout handling (increased to 60 seconds for feature generation)
+- Better error messages for dependency-related issues
+- Enhanced debugging output for troubleshooting
+
+## [1.0.6] - 2025-06-17
+
+### Fixed
+
+- Fixed "Feature Generator: setup CLI" command to properly show setup dialog
+- Enhanced right-click context menus for better user experience
+- Resolved dependency management issues
+
+### Added
+
+- **Right-click context menu** on feature folders to add use cases
+- **Right-click context menu** on lib/features folders to create new features
+- Smart context detection for folder-specific actions
+- Improved error handling for all commands
+
+### Changed
+
+- Renamed "Install Dependencies" to "Setup Dependencies" for clarity
+- Enhanced folder path detection for right-click actions
+- Improved user feedback messages
+- Better command organization in context menus
+
+### Technical Improvements
+
+- Added `createFeatureInFolder` command for targeted feature creation
+- Enhanced path parsing for feature name extraction from folder structure
+- Improved TypeScript type safety in command handlers
+- Better error handling with user-friendly messages
+- Fixed `ensureFeatureGeneratorDependency` method implementation
+
+## [1.0.3] - 2025-06-17
+
+### Fixed
+
+- Fixed "Feature Generator: setup CLI" command to properly show setup dialog
+- Enhanced right-click context menus for better user experience
+
+### Added
+
+- **Right-click context menu** on feature folders to add use cases
+- **Right-click context menu** on lib/features folders to create new features
+- Smart context detection for folder-specific actions
+- Improved error handling for all commands
+
+### Changed
+
+- Renamed "Install Dependencies" to "Setup Dependencies" for clarity
+- Enhanced folder path detection for right-click actions
+- Improved user feedback messages
+- Better command organization in context menus
+
+### Technical Improvements
+
+- Added `createFeatureInFolder` command for targeted feature creation
+- Enhanced path parsing for feature name extraction from folder structure
+- Improved TypeScript type safety in command handlers
+- Better error handling with user-friendly messages
+
 ## [1.0.2] - 2025-06-15
 
 ### Fixed

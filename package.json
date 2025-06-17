@@ -1,8 +1,8 @@
 {
   "name": "feature-generator-vscode",
   "displayName": "Flutter Feature Generator Clean Code Architecture",
-  "description": "VS Code Extension for Feature Generator CLI - Clean Architecture GUI for Flutter/Dart projects",
-  "version": "1.0.2",
+  "description": "Create Flutter Clean Architecture features with a simple right-click. Generate complete features and use cases instantly - no manual setup required!",
+  "version": "1.1.1",
   "publisher": "mohamedatefalqashlan",
   "author": {
     "name": "Mohamed Atef ALqashlan",
@@ -64,7 +64,7 @@
       },
       {
         "command": "featureGenerator.installDependencies",
-        "title": "Install Dependencies",
+        "title": "Setup Dependencies",
         "category": "Feature Generator",
         "icon": "$(cloud-download)"
       },
@@ -84,6 +84,12 @@
         "command": "featureGenerator.refreshExplorer",
         "title": "Refresh",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "featureGenerator.createFeatureInFolder",
+        "title": "Create Feature Here",
+        "category": "Feature Generator",
+        "icon": "$(folder-library)"
       }
     ],
     "views": {
@@ -134,9 +140,19 @@
       ],
       "explorer/context": [
         {
-          "command": "featureGenerator.createFeature",
-          "when": "explorerResourceIsFolder",
+          "command": "featureGenerator.createFeatureInFolder",
+          "when": "explorerResourceIsFolder && resourcePath =~ /.*\\/features$/",
           "group": "7_modification@1"
+        },
+        {
+          "command": "featureGenerator.createFeature",
+          "when": "explorerResourceIsFolder && resourcePath =~ /.*\\/lib$/",
+          "group": "7_modification@1"
+        },
+        {
+          "command": "featureGenerator.addUseCase", 
+          "when": "explorerResourceIsFolder && resourcePath =~ /.*\\/features\\/[^/]+$/",
+          "group": "7_modification@2"
         }
       ]
     },

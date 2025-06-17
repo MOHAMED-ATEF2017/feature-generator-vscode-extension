@@ -22,7 +22,14 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Register commands
     const commands = [
-        vscode.commands.registerCommand('featureGenerator.createFeature', async () => {
+        vscode.commands.registerCommand('featureGenerator.createFeature', async (item?) => {
+            let targetPath: string | undefined;
+            
+            // Check if called from right-click context menu on a folder
+            if (item && item.fsPath) {
+                targetPath = item.fsPath;
+            }
+            
             const featureName = await vscode.window.showInputBox({
                 prompt: 'Enter feature name',
                 placeHolder: 'e.g., Auth, User, Dashboard',
@@ -38,18 +45,71 @@ export function activate(context: vscode.ExtensionContext) {
             });
 
             if (featureName) {
-                await featureService.createFeature(featureName.trim());
-                featureExplorerProvider.refresh();
-                vscode.window.showInformationMessage(`Feature "${featureName}" created successfully!`);
+                try {
+                    await featureService.createFeature(featureName.trim());
+                    featureExplorerProvider.refresh();
+                    vscode.window.showInformationMessage(`Feature "${featureName}" created successfully!`);
+                } catch (error) {
+                    vscode.window.showErrorMessage(`Failed to create feature: ${error}`);
+                }
+            }
+        }),
+
+        vscode.commands.registerCommand('featureGenerator.createFeatureInFolder', async (item?) => {
+            const featureName = await vscode.window.showInputBox({
+                prompt: 'Enter feature name',
+                placeHolder: 'e.g., Auth, User, Dashboard',
+                validateInput: (value) => {
+                    if (!value || value.trim().length === 0) {
+                        return 'Feature name cannot be empty';
+                    }
+                    if (!/^[A-Za-z][A-Za-z0-9]*$/.test(value)) {
+                        return 'Feature name must start with a letter and contain only letters and numbers';
+                    }
+                    return null;
+                }
+            });
+
+            if (featureName) {
+                try {
+                    await featureService.createFeature(featureName.trim());
+                    featureExplorerProvider.refresh();
+                    vscode.window.showInformationMessage(`Feature "${featureName}" created successfully!`);
+                } catch (error) {
+                    vscode.window.showErrorMessage(`Failed to create feature: ${error}`);
+                }
             }
         }),
 
         vscode.commands.registerCommand('featureGenerator.addUseCase', async (item?) => {
             let featureName: string | undefined;
             
-            if (item && item.contextValue === 'feature') {
+            console.log('addUseCase called with item:', item);
+            
+            // Check if called from right-click context menu on a folder
+            if (item && item.fsPath) {
+                const folderPath = item.fsPath;
+                // Extract feature name from folder path (assumes structure: .../features/FeatureName)
+                // Handle both Windows and Unix paths
+                const pathSeparator = folderPath.includes('\\') ? '\\' : '/';
+                const pathParts = folderPath.split(pathSeparator);
+                const featuresIndex = pathParts.findIndex((part: string) => part === 'features');
+                if (featuresIndex !== -1 && featuresIndex + 1 < pathParts.length) {
+                    featureName = pathParts[featuresIndex + 1];
+                    console.log(`Extracted feature name: ${featureName} from path: ${folderPath}`);
+                } else {
+                    console.log(`Could not extract feature name from path: ${folderPath}`);
+                }
+            }
+            // Check if called from tree view context menu
+            else if (item && item.contextValue === 'feature') {
                 featureName = item.label;
-            } else {
+                console.log(`Feature name from tree view: ${featureName}`);
+            } 
+            
+            // If no feature name detected, show manual selection
+            if (!featureName) {
+                console.log('No feature name detected, showing selection dialog');
                 const features = await featureService.getFeatures();
                 if (features.length === 0) {
                     vscode.window.showErrorMessage('No features found. Create a feature first.');
@@ -68,7 +128,12 @@ export function activate(context: vscode.ExtensionContext) {
                 featureName = selectedItem?.label;
             }
 
-            if (!featureName) return;
+            if (!featureName) {
+                console.log('No feature name provided, cancelling');
+                return;
+            }
+
+            console.log(`Creating use case for feature: ${featureName}`);
 
             const useCaseName = await vscode.window.showInputBox({
                 prompt: `Enter use case name for feature "${featureName}"`,
@@ -85,31 +150,39 @@ export function activate(context: vscode.ExtensionContext) {
             });
 
             if (useCaseName) {
-                await featureService.addUseCase(featureName, useCaseName.trim());
-                featureExplorerProvider.refresh();
-                vscode.window.showInformationMessage(`Use case "${useCaseName}" added to feature "${featureName}"!`);
+                try {
+                    await featureService.addUseCase(featureName, useCaseName.trim());
+                    featureExplorerProvider.refresh();
+                    vscode.window.showInformationMessage(`Use case "${useCaseName}" added to feature "${featureName}"!`);
+                } catch (error) {
+                    vscode.window.showErrorMessage(`Failed to add use case: ${error}`);
+                }
             }
         }),
 
         vscode.commands.registerCommand('featureGenerator.installDependencies', async () => {
-            const result = await vscode.window.showInformationMessage(
-                'This will install dependencies and set up core files. Continue?',
-                'Yes', 'No'
-            );
-            
-            if (result === 'Yes') {
-                vscode.window.withProgress({
-                    location: vscode.ProgressLocation.Notification,
-                    title: 'Installing dependencies...',
-                    cancellable: false
-                }, async (progress) => {
-                    progress.report({ increment: 0, message: 'Setting up core files...' });
-                    await featureService.installDependencies();
-                    progress.report({ increment: 100, message: 'Complete!' });
-                });
+            try {
+                const result = await vscode.window.showInformationMessage(
+                    'This will set up feature_generator dependency in your project. Continue?',
+                    'Yes', 'No'
+                );
                 
-                featureExplorerProvider.refresh();
-                vscode.window.showInformationMessage('Dependencies installed successfully!');
+                if (result === 'Yes') {
+                    await vscode.window.withProgress({
+                        location: vscode.ProgressLocation.Notification,
+                        title: 'Setting up dependencies...',
+                        cancellable: false
+                    }, async (progress) => {
+                        progress.report({ increment: 0, message: 'Adding feature_generator to pubspec.yaml...' });
+                        await featureService.installDependencies();
+                        progress.report({ increment: 100, message: 'Complete!' });
+                    });
+                    
+                    featureExplorerProvider.refresh();
+                    vscode.window.showInformationMessage('Dependencies set up successfully! You can now create features.');
+                }
+            } catch (error) {
+                vscode.window.showErrorMessage(`Failed to setup dependencies: ${error}`);
             }
         }),
 
